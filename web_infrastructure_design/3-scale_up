@@ -1,0 +1,17 @@
+Task 3: Scale Up
+
+1. Why additional elements were added:
+- Additional Load Balancer: Added to create a cluster. This ensures High Availability for the entry point. If the first load balancer fails, the second one takes over, eliminating the Load Balancer as a Single Point of Failure (SPOF).
+- Splitting Components: By moving the Web Server, Application Server, and Database to their own dedicated servers, we prevent resource contention. A heavy database query will no longer slow down the web server's ability to handle new HTTP connections.
+- Scaling Out: This architecture allows us to scale each layer independently. If the logic is slow, we add more App Servers. If the data grows, we upgrade the Database server.
+
+2. Specifics of the Infrastructure:
+- Load Balancer Cluster: Usually managed by a protocol like Keepalived or VRRP, providing a Floating IP that moves between the active and passive load balancer.
+- Dedicated Web Server: Optimized solely for handling SSL/TLS, compression, and serving static assets.
+- Dedicated Application Server: Optimized for executing code (e.g., Python/Ruby/Node.js) and managing application logic.
+- Dedicated Database Server: Optimized for high disk I/O and memory usage for indexing and data retrieval.
+
+3. Benefits:
+- Improved Performance: Each server's OS and hardware can be tuned for its specific role.
+- Security: We can isolate the database server in a private network where it is not reachable from the public internet, only from the application servers.
+- Redundancy: Components are now modular, making the system much more resilient to failures at any single layer.
