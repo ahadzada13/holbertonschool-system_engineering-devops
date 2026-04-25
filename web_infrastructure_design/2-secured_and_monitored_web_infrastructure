@@ -1,0 +1,18 @@
+Task 2: Secured and Monitored Web Infrastructure
+
+1. Why additional elements were added:
+- Firewalls: Added to protect each server by filtering incoming and outgoing network traffic based on security rules.
+- SSL Certificate: Added to enable HTTPS, ensuring that communication between the user and the web stack is encrypted.
+- Monitoring Clients: Added to collect metrics and logs from the servers to track performance and detect issues in real-time.
+
+2. Specifics:
+- Firewalls: They act as a security barrier, blocking unauthorized access while allowing legitimate traffic (like port 80/443).
+- HTTPS: Traffic is served over HTTPS to provide data integrity, authentication, and confidentiality (encryption), preventing "man-in-the-middle" attacks.
+- Monitoring: Used to gain visibility into the system's health, helping to identify bottlenecks, failures, or unusual activity.
+- Data Collection: Monitoring tools (like SumoLogic) use agents/clients installed on the servers to push logs and performance metrics (CPU, RAM, disk I/O) to a central dashboard.
+- Monitoring QPS: To monitor Web Server QPS (Queries Per Second), you would configure the monitoring client to parse the access logs of the web server (Nginx) and count the number of requests per second.
+
+3. Infrastructure Issues:
+- SSL Termination at Load Balancer: While it reduces the load on backend servers, the traffic between the load balancer and the servers is unencrypted (HTTP), which is a security risk if the internal network is compromised.
+- Single Writable MySQL Server: Having only one Primary node for writes is a SPOF. If the Primary fails, the application cannot perform any data-changing operations.
+- Uniform Server Components: Having the DB, Web Server, and App Server on every machine leads to resource contention. A database spike could starve the web server of CPU/RAM. It also increases the attack surface for each server.
