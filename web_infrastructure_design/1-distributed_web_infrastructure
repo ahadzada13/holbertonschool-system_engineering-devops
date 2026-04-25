@@ -1,0 +1,18 @@
+Task 1: Distributed Web Infrastructure
+
+1. Why additional elements were added:
+- Load Balancer (HAproxy): Added to distribute incoming traffic across multiple servers, preventing any single server from becoming overwhelmed and providing redundancy.
+- Second Server: Added so that if one server fails, the other can continue to serve the website, eliminating the server as a Single Point of Failure (SPOF).
+
+2. Load Balancer Configuration:
+- Distribution Algorithm: Round Robin. It works by sending each new request to the next server in the list in a rotating fashion (Server 1, then Server 2, then back to Server 1).
+- Setup: Active-Active. In an Active-Active setup, both servers are receiving and processing traffic simultaneously. In contrast, an Active-Passive setup has one server handling all traffic while the other remains on standby, only activating if the first one fails.
+
+3. Database Primary-Replica (Master-Slave) Cluster:
+- How it works: The Primary node handles all write operations (INSERT, UPDATE, DELETE), while the Replica node synchronizes with the Primary to stay up-to-date.
+- Difference in application use: The application sends all data-changing requests (writes) to the Primary node. The Replica node is typically used for read-only operations to reduce the load on the Primary.
+
+4. Infrastructure Issues:
+- SPOF (Single Point of Failure): The Load Balancer is now a SPOF. If HAproxy fails, the whole system is inaccessible. The Primary Database is also a SPOF for write operations.
+- Security Issues: There is no Firewall to block unauthorized traffic, and no HTTPS, meaning data transmitted between the user and server is not encrypted (plain text).
+- Monitoring: There is no monitoring system to alert the sysadmin if a server is down or if resources (CPU/RAM) are exhausted.
