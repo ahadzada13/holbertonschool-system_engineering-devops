@@ -1,0 +1,15 @@
+Task 0: Simple Web Stack
+
+1. Component Explanations:
+- Server: A physical or virtual machine that hosts the web infrastructure.
+- Domain Name: A human-readable name (foobar.com) that points to an IP address.
+- DNS 'www' Record: An A record that maps the subdomain www.foobar.com to the server IP 8.8.8.8.
+- Web Server (Nginx): Software that handles HTTP requests and serves static content.
+- Application Server: Executes the application logic and processes dynamic data.
+- Database (MySQL): Stores and manages the application's persistent data.
+- Communication: The server communicates with the client via HTTP protocol over TCP/IP.
+
+2. Infrastructure Issues:
+- SPOF (Single Point of Failure): Everything is on one server; if it fails, the whole site is down.
+- Maintenance Downtime: Deploying new code or restarting services causes the site to be offline.
+- Scalability: A single server cannot handle high traffic increases (QPS).
